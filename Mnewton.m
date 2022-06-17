@@ -2,15 +2,16 @@ clear ; clc;
 
 % Argument:
 syms x1 x2;
-
+l2=4;
+l3=2;
 % System of equations: unify with column vector
-f1 = x1^2 - 10*x1 + x2^2 + 8;
-f2 = x1*x2^2 + x1 - 10*x2 + 8;
+f1 = l2*cos(x1)-l3*sin(x1)*sin(x2)-4;
+f2 = l3*cos(x1)*sin(x2)+l2*sin(x1)-2;
 x = [x1;x2];
 f = [f1;f2];
 
 % initial value: unified column vector
-x0 = [5;4];
+x0 = [0;pi/2-1];
 error_z = double( input('precision of z-norm:') );
 error_fk = double( input('precision of fk norm:') );
 num = input('stop iteration count:');

@@ -1,19 +1,22 @@
 clear ; clc
-
+format long
 % Argument:
 syms x1 x2;
 
-% System of equations: unify with column vector
-f1 = x1^2 - 10*x1 + x2^2 + 8;
-f2 = x1*x2^2 + x1 - 10*x2 + 8;
+l2=4;
+l3=2;
 
+% System of equations: unify with column vector
+f1 = l2*cos(x1)-l3*sin(x1)*sin(x2)-4;
+f2 = l3*cos(x1)*sin(x2)+l2*sin(x1)-2;
+f3=-l3*cos(x2);
 % f1 = 4*x1 - x2 + 0.1*exp(x1)-1;
 % f2 = -x1 + 4*x2 + 1/8*x1^2;
 x = [x1;x2];
-f = [f1;f2];
+f = [f1;f2;f3];
 
 % initial value: unified column vector
-x0 = [1;2];
+x0 = [0;pi];
 error_dxk = double( input('dxk norm precision:') );
 error_fkk = double( input('precision of fkk norm:') );
 num = input('stop iteration count:');
@@ -28,7 +31,7 @@ for k = 1:num
     dxk = pre_seidel(Ak,-bk,k); % step size
     x0 = x0 + dxk;
     fkk = double( subs(f, x, x0) ); % is simply used to judge
-    if norm(dxk) < error_dxk | norm(fkk) < error_fkk
+    if norm(dxk) < error_dxk & norm(fkk) < error_fkk
         break;
     end
 end
